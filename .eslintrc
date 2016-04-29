@@ -1,0 +1,23 @@
+{
+  "rules": {
+    "max-len": [2, {"code": 120, "tabWidth": 2, "ignoreUrls": true}],
+    "no-console": 0,
+    "valid-jsdoc": [
+      1,
+      {
+        "requireReturn": false,
+        "requireReturnDescription": false
+      }
+    ]
+  },
+
+  "env": {
+    "mocha": true
+  },
+
+  "plugins": [
+    "react"
+  ],
+
+  "extends": ["eslint:recommended", "airbnb"]
+}
