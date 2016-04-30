@@ -2,5 +2,4 @@
 
 ## Webpack
 
-- [React Hot Loader](https://github.com/gaearon/react-hot-loader)
-- ES6
+- Write config files in ES6
