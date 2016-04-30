@@ -13,4 +13,4 @@ linters:
     enabled: false
 
   SelectorFormat:
-    convention: 'hyphenated_BEM'
+    convention: 'camel_case'

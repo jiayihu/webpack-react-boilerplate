@@ -1,10 +1,14 @@
+import './main.scss';
 import React from 'react';
-require('./main.scss');
+import Button from '../Button/Button';
 
 export default class App extends React.Component {
   render() {
     return (
-      <div>This is a React Application!</div>
+      <div>
+        <p>This is React application</p>
+        <p><Button /></p>
+      </div>
     );
   }
 }
