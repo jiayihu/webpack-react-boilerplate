@@ -19,7 +19,7 @@ npm install
 ```
 Development
 ``` javascript
-npm start //or gulp
+npm start
 ```
 Production mode
 ``` javascript
