@@ -1,6 +1,8 @@
-import './main.scss';
+import './styles.scss';
 import React from 'react';
-import Button from '../Button/Button';
+import Button from '../uikit/Button/Button';
+import Dashboard from '../views/Dashboard/Dashboard';
+import Social from '../views/Social/Social';
 
 export default class App extends React.Component {
   render() {
@@ -8,6 +10,8 @@ export default class App extends React.Component {
       <div>
         <p>This is React application!</p>
         <p><Button /></p>
+        <Dashboard />
+        <Social />
       </div>
     );
   }

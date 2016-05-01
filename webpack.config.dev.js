@@ -76,7 +76,7 @@ module.exports = {
         test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.eot(\?v=\d+\.\d+\.\d+)?$/i,
         loader: 'file-loader',
         query: {
-          name: '[path][name].[ext]?[hash]'
+          name: 'assets/[name]_[hash:5].[ext]?[hash]'
         }
       },
     ]

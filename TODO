@@ -3,3 +3,5 @@
 ## Webpack
 
 - Write config files in ES6
+- Add Redux
+- Add routing with dynamic routing

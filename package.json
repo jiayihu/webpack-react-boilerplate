@@ -11,7 +11,8 @@
     "build": "npm run clean && webpack --config webpack.config.prod.js",
     "clean": "rm -rf dist",
     "start": "webpack-dev-server --inline --hot --config webpack.config.dev.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tree": "tree -d -I node_modules > tree.txt"
   },
   "keywords": [
     "webpack",

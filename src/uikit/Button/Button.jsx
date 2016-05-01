@@ -3,6 +3,6 @@ import style from './button.module.scss';
 
 export default function Button() {
   return (
-    <button className={style.myBtn}>Pls click me!</button>
+    <button className={style.myBtn}>I'm a button!</button>
   );
 }
