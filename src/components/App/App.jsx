@@ -6,7 +6,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <p>This is React application</p>
+        <p>This is React application!</p>
         <p><Button /></p>
       </div>
     );

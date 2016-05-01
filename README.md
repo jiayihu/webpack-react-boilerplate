@@ -5,7 +5,7 @@
 > This is a minimal Webpack boilerplate for React.js front-end development, meant to have an essential and readable configuration file. You don't need to get overwhelmed by Isomorphic React, GraphQL, Relay etc.
 
 ## Features
-- React Hot Loader
+- [React Hot Loader](https://github.com/gaearon/react-hot-loader)
 - SCSS with Autoprefixer and CSS Modules
 - Support for JSX conversion and ES2015 with Babel
 - Production mode with optimisations
