@@ -8,9 +8,9 @@
     "url": "https://github.com/jiayihu/webpack-boilerplate.git"
   },
   "scripts": {
-    "build": "npm run clean && webpack --config webpack.config.prod.js",
+    "build": "npm run clean && webpack --config webpack.config.prod.babel.js",
     "clean": "rm -rf dist",
-    "start": "webpack-dev-server --inline --hot --config webpack.config.dev.js",
+    "start": "webpack-dev-server --inline --hot --config webpack.config.dev.babel.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tree": "tree -d -I node_modules > tree.txt"
   },
@@ -31,8 +31,10 @@
     "eslint": "^2.3.0",
     "eslint-config-airbnb": "^6.2.0",
     "eslint-plugin-react": "^4.3.0",
+    "exports-loader": "^0.6.3",
     "file-loader": "^0.8.5",
     "html-loader": "^0.4.3",
+    "imports-loader": "^0.6.5",
     "json-loader": "^0.5.4",
     "node-sass": "^3.6.0",
     "postcss-loader": "^0.9.1",
@@ -45,6 +47,7 @@
   },
   "dependencies": {
     "react": "^15.0.1",
-    "react-dom": "^15.0.1"
+    "react-dom": "^15.0.1",
+    "whatwg-fetch": "^1.0.0"
   }
 }
