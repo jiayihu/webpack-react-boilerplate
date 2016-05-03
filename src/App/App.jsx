@@ -1,6 +1,6 @@
 import './styles.scss';
 import React from 'react';
-import Button from '../uikit/Button/Button';
+import Button from 'uikit/Button/Button';
 import Dashboard from '../views/Dashboard/Dashboard';
 import Social from '../views/Social/Social';
 import { getAuth, getData } from './jwt';

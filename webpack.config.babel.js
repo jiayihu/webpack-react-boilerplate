@@ -49,6 +49,11 @@ module.exports = {
     filename: 'main.js',
   },
   resolve: {
+    alias: {
+      uikit: path.join(root.src, 'uikit'),
+      shared: path.join(root.src, 'shared'),
+      services: path.join(root.src, 'services'),
+    },
     extensions: ['', '.js', '.jsx'],
   },
   module: {
@@ -99,10 +104,17 @@ module.exports = {
         include: root.src,
       },
       {
-        test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.eot(\?v=\d+\.\d+\.\d+)?$/i,
+        test: /\.jpe?g$|\.gif$|\.png$/i,
         loader: 'file-loader',
         query: {
-          name: DEBUG ? 'assets/[path]__[name].[ext]?[hash:5]' : 'assets/[name]_[hash:5].[ext]?[hash:5]',
+          name: DEBUG ? '[path]__[name].[ext]?[hash:5]' : 'images/[name]_[hash:5].[ext]?[hash:5]',
+        },
+      },
+      {
+        test: /\.svg$|\.eot(\?v=\d+\.\d+\.\d+)?$/i,
+        loader: 'file-loader',
+        query: {
+          name: DEBUG ? '[path]__[name].[ext]?[hash:5]' : 'fonts/[name]_[hash:5].[ext]?[hash:5]',
         },
       },
     ],

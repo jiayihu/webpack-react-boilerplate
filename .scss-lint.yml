@@ -1,6 +1,4 @@
-scss_files: "app/stylesheets/**/*.scss"
-
-exclude: 'app/stylesheets/third-party/*.scss'
+scss_files: "./src/**/*.scss"
 
 linters:
   ColorKeyword:

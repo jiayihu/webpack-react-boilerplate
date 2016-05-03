@@ -2,7 +2,7 @@
 
 ## Webpack
 
-- Merge dev config with prod config
+- Add resolve for uikit, shared and services
 - Add Redux
 - Add routing with dynamic routing
 
