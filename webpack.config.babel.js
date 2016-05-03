@@ -8,8 +8,39 @@ const root = {
   dest: path.join(__dirname, 'dist'),
 };
 
+/**
+ * Whether we are in development or production
+ * @type {Boolean}
+ */
+const DEBUG = process.env.NODE_ENV !== 'production';
+
+const devPlugins = [
+  new webpack.NoErrorsPlugin(),
+];
+const prodPlugins = [
+  new webpack.optimize.OccurrenceOrderPlugin(),
+  new webpack.optimize.UglifyJsPlugin({
+    compressor: {
+      warnings: false,
+    },
+  }),
+  new webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: JSON.stringify('production'),
+    },
+  }),
+  new webpack.ProvidePlugin({
+    fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
+  }),
+];
+
 module.exports = {
-  devtool: 'source-map',
+  devServer: DEBUG ? {
+    historyApiFallback: true,
+    noInfo: false,
+    port: 3000,
+  } : {},
+  devtool: DEBUG ? 'eval' : 'source-map',
   entry: root.src,
   output: {
     path: root.dest,
@@ -24,7 +55,15 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        loader: 'babel',
+        loader: combineLoaders([
+          { loader: 'react-hot' },
+          {
+            loader: 'babel',
+            query: {
+              cacheDirectory: DEBUG,
+            },
+          },
+        ]),
         exclude: /node_modules/,
       },
       {
@@ -63,27 +102,12 @@ module.exports = {
         test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.eot(\?v=\d+\.\d+\.\d+)?$/i,
         loader: 'file-loader',
         query: {
-          name: 'assets/[name]_[hash:5].[ext]?[hash:5]',
+          name: DEBUG ? 'assets/[path]__[name].[ext]?[hash:5]' : 'assets/[name]_[hash:5].[ext]?[hash:5]',
         },
       },
     ],
   },
-  plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false,
-      },
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
-    }),
-    new webpack.ProvidePlugin({
-      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
-    }),
-  ],
+  plugins: DEBUG ? devPlugins : prodPlugins,
   postcss() {
     return [
       autoprefixer({

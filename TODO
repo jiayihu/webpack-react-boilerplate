@@ -2,6 +2,10 @@
 
 ## Webpack
 
-- Write config files in ES6
+- Merge dev config with prod config
 - Add Redux
 - Add routing with dynamic routing
+
+## Scaffold
+- Add Mocha + Chai + Sinon (?) for unit testing
+- Add Nightmare for functional UI testing

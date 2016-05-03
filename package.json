@@ -8,9 +8,9 @@
     "url": "https://github.com/jiayihu/webpack-boilerplate.git"
   },
   "scripts": {
-    "build": "npm run clean && webpack --config webpack.config.prod.babel.js",
+    "build": "npm run clean && NODE_ENV=production webpack --config webpack.config.babel.js",
     "clean": "rm -rf dist",
-    "start": "webpack-dev-server --inline --hot --config webpack.config.dev.babel.js",
+    "start": "webpack-dev-server --inline --hot --config webpack.config.babel.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tree": "tree -d -I node_modules > tree.txt"
   },
