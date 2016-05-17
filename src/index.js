@@ -1,5 +1,5 @@
-import React from 'react';
+import 'babel-polyfill';
 import ReactDOM from 'react-dom';
-import App from './App/App';
+import routes from './app/routes';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(routes, document.getElementById('app'));

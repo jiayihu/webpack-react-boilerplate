@@ -2,7 +2,6 @@
 
 ## Webpack
 
-- Add resolve for uikit, shared and services
 - Add Redux
 - Add routing with dynamic routing
 

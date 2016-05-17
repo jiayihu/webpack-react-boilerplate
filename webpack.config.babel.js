@@ -29,9 +29,6 @@ const prodPlugins = [
       NODE_ENV: JSON.stringify('production'),
     },
   }),
-  new webpack.ProvidePlugin({
-    fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
-  }),
 ];
 
 module.exports = {
@@ -50,9 +47,11 @@ module.exports = {
   },
   resolve: {
     alias: {
-      uikit: path.join(root.src, 'uikit'),
+      App: path.join(root.src, 'App'),
       shared: path.join(root.src, 'shared'),
       services: path.join(root.src, 'services'),
+      uikit: path.join(root.src, 'uikit'),
+      views: path.join(root.src, 'views'),
     },
     extensions: ['', '.js', '.jsx'],
   },
@@ -104,17 +103,26 @@ module.exports = {
         include: root.src,
       },
       {
-        test: /\.jpe?g$|\.gif$|\.png$/i,
+        test: /\.(png|jpg|jpeg|gif|svg)$/i,
         loader: 'file-loader',
         query: {
           name: DEBUG ? '[path]__[name].[ext]?[hash:5]' : 'images/[name]_[hash:5].[ext]?[hash:5]',
         },
       },
+      // When .svg is used as font (by Font-awesome) and not as image we emit it
+      // into the 'fonts' folder
       {
-        test: /\.svg$|\.eot(\?v=\d+\.\d+\.\d+)?$/i,
+        test: /\.svg(\?v=\d+\.\d+\.\d+)$/,
         loader: 'file-loader',
         query: {
-          name: DEBUG ? '[path]__[name].[ext]?[hash:5]' : 'fonts/[name]_[hash:5].[ext]?[hash:5]',
+          name: DEBUG ? '[path]__[name].[ext]?[hash:5]' : 'fonts/[name].[ext]?[hash:5]',
+        },
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file-loader',
+        query: {
+          name: DEBUG ? '[path]__[name].[ext]?[hash:5]' : 'fonts/[name].[ext]?[hash:5]',
         },
       },
     ],
