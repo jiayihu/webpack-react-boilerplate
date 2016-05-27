@@ -1,0 +1,3 @@
+--recursive
+--require ignore-styles
+--compilers js:babel-register
