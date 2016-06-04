@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import ReactDOM from 'react-dom';
 import routes from './app/routes';
 
-if(module.hot) {
+if(module && module.hot) {
   module.hot.accept();
 }
 
