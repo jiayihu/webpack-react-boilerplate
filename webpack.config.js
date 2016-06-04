@@ -1,7 +1,7 @@
-import path from 'path';
-import webpack from 'webpack';
-import combineLoaders from 'webpack-combine-loaders';
-import autoprefixer from 'autoprefixer';
+const path = require('path');
+const webpack = require('webpack');
+const combineLoaders = require('webpack-combine-loaders');
+const autoprefixer = require('autoprefixer');
 
 const root = {
   src: path.join(__dirname, 'src'),
@@ -16,6 +16,7 @@ const DEBUG = process.env.NODE_ENV !== 'production';
 
 const devPlugins = [
   new webpack.NoErrorsPlugin(),
+  new webpack.HotModuleReplacementPlugin(),
 ];
 const prodPlugins = [
   new webpack.optimize.OccurrenceOrderPlugin(),
@@ -32,13 +33,12 @@ const prodPlugins = [
 ];
 
 module.exports = {
-  devServer: DEBUG ? {
-    historyApiFallback: true,
-    noInfo: false,
-    port: 3000,
-  } : {},
   devtool: DEBUG ? 'eval' : 'source-map',
-  entry: root.src,
+  entry: [
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
+    root.src,
+  ],
   output: {
     path: root.dest,
     pathinfo: true,
