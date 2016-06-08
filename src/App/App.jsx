@@ -1,6 +1,6 @@
 import './styles.scss';
 import React from 'react';
-import { GeneralMenu } from 'shared';
+import { GeneralMenu } from '../shared';
 
 export default class App extends React.Component {
   render() {
