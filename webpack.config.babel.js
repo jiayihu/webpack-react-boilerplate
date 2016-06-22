@@ -1,7 +1,7 @@
-const path = require('path');
-const webpack = require('webpack');
-const combineLoaders = require('webpack-combine-loaders');
-const autoprefixer = require('autoprefixer');
+import path from 'path';
+import webpack from 'webpack';
+import combineLoaders from 'webpack-combine-loaders';
+import autoprefixer from 'autoprefixer';
 
 const root = {
   src: path.join(__dirname, 'src'),
@@ -16,7 +16,6 @@ const DEBUG = process.env.NODE_ENV !== 'production';
 
 const devPlugins = [
   new webpack.NoErrorsPlugin(),
-  new webpack.HotModuleReplacementPlugin(),
 ];
 const prodPlugins = [
   new webpack.optimize.OccurrenceOrderPlugin(),
@@ -32,26 +31,34 @@ const prodPlugins = [
   }),
 ];
 
+const devEntry = [
+  'react-hot-loader/patch',
+  root.src,
+];
+
 module.exports = {
+  devServer: DEBUG ? {
+    historyApiFallback: true,
+    noInfo: false,
+    port: 3000,
+  } : {},
   devtool: DEBUG ? 'eval' : 'source-map',
-  entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
-    root.src,
-  ],
+  entry: DEBUG ? devEntry : root.src,
   output: {
     path: root.dest,
     pathinfo: true,
-    publicPath: '/dist/',
+    publicPath: '/dist',
     filename: 'main.js',
   },
   resolve: {
     alias: {
       App: path.join(root.src, 'App'),
+      hocs: path.join(root.src, 'hocs'),
+      cbRedux: path.join(root.src, 'redux'),
+      routes: path.join(root.src, 'routes'),
       shared: path.join(root.src, 'shared'),
       services: path.join(root.src, 'services'),
       uikit: path.join(root.src, 'uikit'),
-      views: path.join(root.src, 'views'),
     },
     extensions: ['', '.js', '.jsx'],
   },
@@ -59,15 +66,10 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        loader: combineLoaders([
-          { loader: 'react-hot' },
-          {
-            loader: 'babel',
-            query: {
-              cacheDirectory: DEBUG,
-            },
-          },
-        ]),
+        loader: 'babel',
+        query: {
+          cacheDirectory: DEBUG,
+        },
         exclude: /node_modules/,
       },
       {
