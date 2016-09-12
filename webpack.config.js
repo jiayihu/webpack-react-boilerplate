@@ -1,7 +1,7 @@
-import path from 'path';
-import webpack from 'webpack';
-import combineLoaders from 'webpack-combine-loaders';
-import autoprefixer from 'autoprefixer';
+const path = require('path');
+const webpack = require('webpack');
+const combineLoaders = require('webpack-combine-loaders');
+const autoprefixer = require('autoprefixer');
 
 const root = {
   src: path.join(__dirname, 'src'),
