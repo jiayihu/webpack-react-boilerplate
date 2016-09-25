@@ -9,10 +9,10 @@ const root = {
 };
 
 /**
- * Whether we are in development or production
+ * Whether the stage is in development or production
  * @type {Boolean}
  */
-const DEBUG = process.env.NODE_ENV !== 'production';
+const IS_DEV = process.env.NODE_ENV !== 'production';
 
 const devPlugins = [
   new webpack.NoErrorsPlugin(),
@@ -37,24 +37,24 @@ const devEntry = [
 ];
 
 module.exports = {
-  devServer: DEBUG ? {
+  devServer: IS_DEV ? {
     historyApiFallback: true,
     noInfo: false,
     port: 3000,
   } : {},
-  devtool: DEBUG ? 'eval' : 'source-map',
-  entry: DEBUG ? devEntry : root.src,
+  devtool: IS_DEV ? 'eval' : 'source-map',
+  entry: IS_DEV ? devEntry : root.src,
   output: {
     path: root.dest,
     pathinfo: true,
-    publicPath: '/dist',
-    filename: 'main.js',
+    publicPath: '',
+    filename: '/js/main.js',
   },
   resolve: {
     alias: {
       App: path.join(root.src, 'App'),
       hocs: path.join(root.src, 'hocs'),
-      cbRedux: path.join(root.src, 'redux'),
+      myRedux: path.join(root.src, 'redux'),
       routes: path.join(root.src, 'routes'),
       shared: path.join(root.src, 'shared'),
       services: path.join(root.src, 'services'),
@@ -68,14 +68,14 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel',
         query: {
-          cacheDirectory: DEBUG,
+          cacheDirectory: IS_DEV,
         },
-        exclude: /node_modules/,
+        include: root.src,
       },
       {
         test: /\.json$/,
         loaders: ['json'],
-        include: path.join(__dirname, 'src'),
+        include: root.src,
       },
       {
         test: /\.css$/,
@@ -83,53 +83,27 @@ module.exports = {
         include: root.src,
       },
       {
-        test: /^((?!\.module).)*\.scss$/,
+        test: /.scss$/,
         loaders: ['style', 'css?importLoaders=1', 'postcss', 'sass'],
-        include: root.src,
-      },
-      {
-        test: /\.module\.scss$/,
-        loader: combineLoaders([
-          { loader: 'style' },
-          {
-            loader: 'css',
-            query: {
-              modules: true,
-              importLoaders: 1,
-              localIdentName: '[name]__[local]___[hash:base64:5]',
-            },
-          },
-          { loader: 'postcss' },
-          { loader: 'sass' },
-        ]),
         include: root.src,
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/i,
         loader: 'file-loader',
         query: {
-          name: DEBUG ? '[path]__[name].[ext]?[hash:5]' : 'images/[name]_[hash:5].[ext]?[hash:5]',
-        },
-      },
-      // When .svg is used as font (by Font-awesome) and not as image we emit it
-      // into the 'fonts' folder
-      {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)$/,
-        loader: 'file-loader',
-        query: {
-          name: DEBUG ? '[path]__[name].[ext]?[hash:5]' : 'fonts/[name].[ext]?[hash:5]',
+          name: IS_DEV ? '[path]__[name].[ext]?[hash:5]' : '/images/[name]_[hash:5].[ext]?[hash:5]',
         },
       },
       {
-        test: /\.(woff|woff2|eot|ttf)(\?v=\d+\.\d+\.\d+)?$/,
+        test: /\.(woff|woff2|eot|ttf)(\?v=(\d+\.)+)?$/,
         loader: 'file-loader',
         query: {
-          name: DEBUG ? '[path]__[name].[ext]?[hash:5]' : 'fonts/[name].[ext]?[hash:5]',
+          name: IS_DEV ? '[path]__[name].[ext]?[hash:5]' : '/fonts/[name].[ext]?[hash:5]',
         },
       },
     ],
   },
-  plugins: DEBUG ? devPlugins : prodPlugins,
+  plugins: IS_DEV ? devPlugins : prodPlugins,
   postcss() {
     return [
       autoprefixer({
